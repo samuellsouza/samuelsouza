@@ -1,3 +1,9 @@
+@import url('/reset.css');
+
+p {
+    text-align: justify;
+}
+
 .gradient-bg {
     background: linear-gradient(135deg, #1e3a8a 0%, #0ea5e9 100%);
 }
