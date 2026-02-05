@@ -149,8 +149,7 @@ p {
   .teste {
     display: block;
     text-align: left;
-    justify-content: flex-start;
-
+    background: #128c7e;
   }
 }
 
