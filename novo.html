@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Samuel Souza | Integrated Design System Portfolio</title>
+
+    <script src="templates/digital-architect.aura.build/assets/resource_3fa48481346f.js"></script>
+    <script src="templates/digital-architect.aura.build/assets/iconify-icon_d39ffc6e4c56.js"></script>
+    <link href="templates/digital-architect.aura.build/assets/css2_19fd9cc6b396.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@200;300;400;500;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           1. CORE TOKENS (Baseado no AURA V8)
+           ========================================= */
+        :root {
+            --bg-body: #FFFFFF;
+            --text-main: #0A0A0A;
+            --text-muted: #737373;
+            --accent-glow: rgba(0, 0, 0, 0.05);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* =========================================
+           2. ANIMAÇÕES E EFEITOS ESPECIAIS
+           ========================================= */
+        
+        /* Lettering Transparente/Stroke */
+        .text-stroke-outline {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2);
+            transition: all 0.6s var(--ease-out-expo);
+        }
+
+        .group:hover .text-stroke-outline {
+            -webkit-text-stroke: 1px rgba(0, 0, 0, 1);
+            color: rgba(0, 0, 0, 0.02);
+        }
+
+        /* Background Grid Animado */
+        .bg-grid-animate {
+            background-size: 50px 50px;
+            background-image: linear-gradient(to right, rgba(0,0,0,0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0,0,0,0.02) 1px, transparent 1px);
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            from { background-position: 0 0; }
+            to { background-position: 50px 50px; }
+        }
+
+        /* Glow Cards (Flashlight effect) */
+        .glow-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glow-card::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.05) 0%, transparent 70%);
+            top: var(--y, -200px);
+            left: var(--x, -200px);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .glow-card:hover::after { opacity: 1; }
+
+        /* Beam Button */
+        .beam-btn {
+            position: relative;
+            overflow: hidden;
+            border-radius: 999px;
+            padding: 1px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .beam-spinner {
+            position: absolute;
+            inset: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent 0 340deg, #000 360deg);
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* Reveal Animations */
+        .motion-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.2s var(--ease-out-expo);
+        }
+
+        .motion-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .text-reveal-wrapper { overflow: hidden; display: inline-flex; }
+        .text-reveal-content {
+            transform: translateY(110%);
+            transition: transform 1.2s var(--ease-out-expo);
+        }
+        .active .text-reveal-content { transform: translateY(0); }
+    </style>
+</head>
+
+<body class="selection:bg-black selection:text-white bg-grid-animate">
+
+    <header class="fixed top-0 w-full z-50 backdrop-blur-md bg-white/70 border-b border-black/5">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-2 group cursor-pointer">
+                <iconify-icon icon="solar:shield-check-bold" class="text-2xl group-hover:rotate-12 transition-transform"></iconify-icon>
+                <span class="font-bold tracking-tighter text-xl">SAMUEL<span class="font-light opacity-40">SOUZA</span></span>
+            </div>
+            
+            <nav class="hidden md:flex gap-8 items-center">
+                <a href="#about" class="text-xs font-mono uppercase tracking-widest hover:text-blue-600 transition-colors">Sobre</a>
+                <a href="#skills" class="text-xs font-mono uppercase tracking-widest hover:text-blue-600 transition-colors">Habilidades</a>
+                <a href="#projects" class="text-xs font-mono uppercase tracking-widest hover:text-blue-600 transition-colors">Projetos</a>
+                <button class="beam-btn group">
+                    <div class="beam-spinner"></div>
+                    <div class="bg-white text-black px-6 py-2 rounded-full relative z-10 text-xs font-bold uppercase tracking-widest">Contate-me</div>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="relative z-10">
+        <section id="home" class="min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+            <div class="container mx-auto px-6 text-center relative">
+                <div class="absolute -top-20 -left-10 w-64 h-64 bg-gray-100 rounded-full blur-3xl opacity-50 animate-pulse"></div>
+                
+                <div class="motion-reveal delay-100 mb-6">
+                    <span class="px-4 py-1 border border-black/10 rounded-full text-[10px] font-mono uppercase tracking-[0.3em] text-gray-400">
+                        Network Analyst & Developer
+                    </span>
+                </div>
+
+                <h1 class="text-7xl md:text-[10rem] font-extrabold tracking-tighter leading-[0.85] mb-8 group">
+                    <div class="text-reveal-wrapper">
+                        <span class="text-reveal-content block">SOLUÇÕES</span>
+                    </div><br>
+                    <div class="text-reveal-wrapper">
+                        <span class="text-reveal-content text-stroke-outline block">DIGITAIS.</span>
+                    </div>
+                </h1>
+
+                <p class="max-w-xl mx-auto text-gray-500 text-lg md:text-xl font-light mb-12 motion-reveal delay-300">
+                    Especialista em <span class="text-black font-semibold">infraestrutura de redes</span> e desenvolvimento de software de alta performance.
+                </p>
+
+                <div class="flex flex-col md:flex-row justify-center gap-6 motion-reveal delay-500">
+                    <a href="#projects" class="px-10 py-4 bg-black text-white rounded-full font-bold hover:scale-105 transition-transform">Ver Projetos</a>
+                    <a href="#about" class="px-10 py-4 border border-black/10 rounded-full font-bold hover:bg-gray-50 transition-colors">Sobre Mim</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="specs" class="py-32 bg-gray-50/50 border-y border-black/5">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
+                    <div>
+                        <h2 class="text-xs font-mono uppercase tracking-[0.3em] text-gray-400 mb-8">01. Tipografia</h2>
+                        <div class="space-y-6">
+                            <h1 class="text-6xl font-extrabold tracking-tighter">H1 Display</h1>
+                            <h2 class="text-4xl font-bold tracking-tight">H2 Headline</h2>
+                            <p class="text-xl text-gray-600">Body Large - Inter Light 20px</p>
+                            <p class="text-base text-gray-500">Body Main - Inter Regular 16px. Focado em legibilidade e respiro visual.</p>
+                            <p class="font-mono text-sm text-blue-600">Monospace - JetBrains Mono</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="text-xs font-mono uppercase tracking-[0.3em] text-gray-400 mb-8">02. Sistema de Cores</h2>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="h-32 bg-white border border-black/5 rounded-2xl p-4 flex flex-col justify-end">
+                                <span class="text-xs font-mono">#FFFFFF</span>
+                                <span class="font-bold">Primary BG</span>
+                            </div>
+                            <div class="h-32 bg-black text-white rounded-2xl p-4 flex flex-col justify-end">
+                                <span class="text-xs font-mono">#0A0A0A</span>
+                                <span class="font-bold">Text Main</span>
+                            </div>
+                            <div class="h-32 bg-blue-600 text-white rounded-2xl p-4 flex flex-col justify-end">
+                                <span class="text-xs font-mono">#2563EB</span>
+                                <span class="font-bold">Accent Blue</span>
+                            </div>
+                            <div class="h-32 bg-gray-100 rounded-2xl p-4 flex flex-col justify-end">
+                                <span class="text-xs font-mono">F9F9F9</span>
+                                <span class="font-bold">Surface</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-32">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold tracking-tighter mb-16 motion-reveal">Habilidades & Componentes</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="glow-card p-8 rounded-3xl motion-reveal delay-100">
+                        <iconify-icon icon="solar: passwords-bold" class="text-4xl mb-6"></iconify-icon>
+                        <h3 class="text-xl font-bold mb-4">Segurança da Informação</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Pós-graduando com foco em cibersegurança e proteção de dados estratégicos.</p>
+                    </div>
+                    <div class="glow-card p-8 rounded-3xl motion-reveal delay-200">
+                        <iconify-icon icon="solar: server-bold" class="text-4xl mb-6"></iconify-icon>
+                        <h3 class="text-xl font-bold mb-4">Analista de Redes</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Configuração avançada de equipamentos Mikrotik, Huawei e Cisco.</p>
+                    </div>
+                    <div class="glow-card p-8 rounded-3xl motion-reveal delay-300">
+                        <iconify-icon icon="solar: code-bold" class="text-4xl mb-6"></iconify-icon>
+                        <h3 class="text-xl font-bold mb-4">Dev Fullstack</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Desenvolvimento de APIs RESTful e interfaces modernas com React e Tailwind.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-20 border-t border-black/5">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+            <span class="text-sm text-gray-400 font-mono">© 2024 SAMUEL SOUZA. BUILT WITH AURA V8.</span>
+            <div class="flex gap-6">
+                <a href="#" class="text-gray-400 hover:text-black transition-colors"><iconify-icon icon="line-md:linkedin"></iconify-icon></a>
+                <a href="#" class="text-gray-400 hover:text-black transition-colors"><iconify-icon icon="line-md:github-loop"></iconify-icon></a>
+                <a href="#" class="text-gray-400 hover:text-black transition-colors"><iconify-icon icon="line-md:instagram"></iconify-icon></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Lógica de Reveal on Scroll
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.motion-reveal').forEach(el => observer.observe(el));
+
+        // Efeito Flashlight/Glow adaptado
+        document.querySelectorAll('.glow-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--x', `${e.clientX - rect.left}px`);
+                card.style.setProperty('--y', `${e.clientY - rect.top}px`);
+            });
+        });
+
+        // Trigger inicial da Hero
+        window.addEventListener('load', () => {
+            document.querySelector('#home').classList.add('active');
+        });
+    </script>
+</body>
+</html>
